@@ -1,13 +1,8 @@
 import Ember from 'ember'
 
 export default Ember.Controller.extend({
-  columns: Ember.A(['name']),
-  rows: Ember.A([
-    { name: 'Jason' },
-    { name: 'Zach' },
-    { name: 'Billy' },
-    { name: 'Trini' },
-    { name: 'Kimberly' },
-    { name: 'Tommy' }
-  ])
+  columns: Ember.A(['value']),
+  rows: Ember.A(Array(100).fill(0).map(() => {
+    return { value: Math.random().toString() }
+  }))
 })

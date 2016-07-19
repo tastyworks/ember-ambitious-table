@@ -70,6 +70,10 @@ export default Ember.Object.extend({
   }),
 
   _toRC (itemIndex) {
+    if (itemIndex === 0) {
+      return { r: 0, c: 0 }
+    }
+
     let numColumns = this.get('columns.length')
     let r = Math.floor(itemIndex / numColumns)
     let c = itemIndex % r
