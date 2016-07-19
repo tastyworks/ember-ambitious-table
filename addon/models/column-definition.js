@@ -2,16 +2,20 @@ import Ember from 'ember'
 
 const ColumnDefinition = Ember.Object.extend({
   width: 100,
-  valuePath: null,
+  contentPath: null,
 
-  getValue (item) {
-    let path = this.get('valuePath')
+  getCellContent (item) {
+    let path = this.get('contentPath')
     return Ember.get(item, path)
   }
 }).reopenClass({
   build (attrs) {
-    if (Ember.typeOf(attrs) === 'string') {
-      return ColumnDefinition.create({ valuePath: attrs })
+    if (ColumnDefinition.detectInstance(attrs)) {
+      return attrs
+    } else if (Ember.typeOf(attrs) === 'string') {
+      return ColumnDefinition.create({ contentPath: attrs })
+    } else {
+      return ColumnDefinition.create(attrs)
     }
   }
 })

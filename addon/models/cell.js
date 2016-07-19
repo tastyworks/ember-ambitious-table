@@ -10,8 +10,8 @@ export default Ember.Object.extend({
     return this.get('column.cellComponent') || 'amb-table-cell'
   }),
 
-  value: Ember.computed('row', 'column.valuePath', function () {
+  content: Ember.computed('row', 'column.contentPath', function () {
     let column = this.get('column')
-    return column.getValue(this.get('row'))
+    return column.getCellContent(this.get('row'))
   })
 })

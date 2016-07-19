@@ -7,5 +7,5 @@ export default Ember.Component.extend({
 
   cell: null,
 
-  value: Ember.computed.readOnly('cell.value')
+  content: Ember.computed.readOnly('cell.content')
 })
