@@ -11,7 +11,7 @@ export default Ember.Object.extend({
   }),
 
   value: Ember.computed('row', 'column.valuePath', function () {
-    let valuePath = this.get('column.valuePath')
-    return Ember.get(this.get('row'), valuePath)
+    let column = this.get('column')
+    return column.getValue(this.get('row'))
   })
 })

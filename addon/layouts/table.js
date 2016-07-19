@@ -6,7 +6,7 @@ export default Ember.Object.extend({
   columns: null,
 
   /* Return an object that describes the size of the content area */
-  contentSize (clientWidth, clientHeight) {
+  contentSize (_clientWidth, _clientHeight) {
     return {
       width: this.get('_columnOffsets.lastObject'),
       height: this.get('_rowOffsets.lastObject')
@@ -14,15 +14,18 @@ export default Ember.Object.extend({
   },
 
   /* Return the index of the first item shown.  */
-  indexAt (_offsetX, _offsetY, _clientWidth, _clientHeight) {
-    // TODO: don't render everything
-    return 0
+  indexAt (_offsetX, offsetY, _clientWidth, _clientHeight) {
+    let rowOffsets = this.get('_rowOffsets')
+    let r = this._findR(offsetY)
+    return this._toI(r, 0)
   },
 
   /* Return the number of items to display */
-  count (_offsetX, _offsetY, _width, _height) {
-    // TODO: don't render everything
-    return this.get('rows.length') * this.get('columns.length')
+  count (_offsetX, offsetY, _width, height) {
+    let rowOffsets = this.get('_rowOffsets')
+    let rStart = this._findR(offsetY)
+    let rEnd = this._findR(offsetY + height)
+    return (rEnd - rStart) * this.get('columns.length')
   },
 
   /* Return the css that should be used to set the size and position of the item.  */
@@ -69,6 +72,16 @@ export default Ember.Object.extend({
     return Ember.get(item, 'height') || 20
   }),
 
+  _findR (scrollOffset) {
+    let rowOffsets = this.get('_rowOffsets')
+    for (let r = 0; r < rowOffsets.length; r++) {
+      if (rowOffsets[r] > scrollOffset) {
+        return r - 1
+      }
+    }
+    return rowOffsets.length
+  },
+
   _toRC (itemIndex) {
     if (itemIndex === 0) {
       return { r: 0, c: 0 }
@@ -78,5 +91,9 @@ export default Ember.Object.extend({
     let r = Math.floor(itemIndex / numColumns)
     let c = itemIndex % r
     return {r, c}
+  },
+
+  _toI (r, c) {
+    return r * this.get('columns.length') + c
   }
 })
