@@ -1,6 +1,7 @@
 import Ember from 'ember'
 import layout from '../templates/components/amb-table'
-import { formatPixelStyle } from 'ember-collection/utils/style-generators'
+
+import TableLayout from '../layouts/table'
 
 export default Ember.Component.extend({
   layout,
@@ -19,32 +20,11 @@ export default Ember.Component.extend({
     return items
   }),
 
-  cellLayout: Ember.computed(function () {
-    let component = this
-
-    return {
-      /* Return an object that describes the size of the content area */
-      contentSize (clientWidth, clientHeight) {
-        return { width: clientWidth, height: clientHeight }
-      },
-
-      /* Return the index of the first item shown.  */
-      indexAt (_offsetX, _offsetY, _clientWidth, _clientHeight) {
-        return 0
-      },
-
-      /* Return the number of items to display */
-      count (_offsetX, _offsetY, _width, _height) {
-        return component.get('items.length')
-      },
-
-      /* Return the css that should be used to set the size and position of the item.  */
-      formatItemStyle (_itemIndex, _clientWidth, _clientHeight) {
-        let pos = { x: 0, y: 0 }
-        let width = 100
-        let height = 20
-        return formatPixelStyle(pos, width, height)
-      }
-    }
+  tableLayout: Ember.computed(function () {
+    return TableLayout.create({
+      source: this,
+      rowsBinding: 'source.rows',
+      columnsBinding: 'source.columns'
+    })
   })
 })
