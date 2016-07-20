@@ -1,3 +1,6 @@
-{{#ember-collection items=items cell-layout=tableLayout as |cell index|}}
-  {{component cell.component classNames=cell.classNames cell=cell}}
-{{/ember-collection}}
+{{#if fixedColumns.length}}
+  {{amb-table-section width=fixedTableLayout.contentWidth rows=rows columns=fixedColumns tableLayout=fixedTableLayout}}
+{{/if}}
+{{#if scrollColumns.length}}
+  {{amb-table-section rows=rows columns=scrollColumns tableLayout=scrollTableLayout}}
+{{/if}}

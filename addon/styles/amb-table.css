@@ -1,0 +1,17 @@
+.amb-table {
+  display: flex;
+  position: relative;
+}
+
+.amb-table-match-parent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.amb-table-section {
+  position: relative;
+  flex: 1 1 0;
+}

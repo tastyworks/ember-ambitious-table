@@ -8,26 +8,36 @@ import TableLayout from '../layouts/table'
 export default Ember.Component.extend({
   layout,
   classNames: ['amb-table'],
+  classNameBindings: ['heightClass'],
   attributeBindings: ['style'],
 
   height: 'match-parent', // 'match-parent', 'wrap-content', or number
 
-  style: Ember.computed('height', 'tableLayout.contentHeight', function () {
+  heightClass: Ember.computed('height', function () {
+    let height = this.get('height')
+    if (Number(height)) {
+      return 'amb-table-fixed-height'
+    } else {
+      return `amb-table-${height}`
+    }
+  }),
+
+  style: Ember.computed('height', 'scrollTableLayout.contentHeight', function () {
     let height = this.get('height')
     if (height === 'match-parent') {
-      return Ember.String.htmlSafe('position: absolute; left: 0; right: 0; top: 0; bottom: 0;')
+      return
     }
 
     if (height === 'wrap-content') {
-      height = this.get('tableLayout.contentHeight')
+      height = this.get('scrollTableLayout.contentHeight')
     }
 
-    return Ember.String.htmlSafe(`position: relative; height: ${height}px`)
+    return Ember.String.htmlSafe(`height: ${height}px`)
   }),
 
-  rowHeight: null,
+  rows: null,
   columns: Ember.computed({
-    get () {
+    get (_key) {
       return Ember.A()
     },
 
@@ -36,24 +46,23 @@ export default Ember.Component.extend({
     }
   }),
 
-  items: Ember.computed('columns.[]', 'rows.[]', function () {
-    let rows = this.get('rows')
-    let columns = this.get('columns')
+  fixedColumns: Ember.computed.filterBy('columns', 'fixed'),
+  scrollColumns: Ember.computed.filterBy('columns', 'fixed', false),
 
-    let items = Ember.A([])
-    rows.forEach((row) => {
-      columns.forEach((column) => {
-        items.pushObject(Cell.create({ row, column }))
-      })
-    })
-    return items
-  }),
-
-  tableLayout: Ember.computed(function () {
+  fixedTableLayout: Ember.computed(function () {
     return TableLayout.create({
       source: this,
       rowsBinding: 'source.rows',
-      columnsBinding: 'source.columns',
+      columnsBinding: 'source.fixedColumns',
+      defaultRowHeightBinding: 'source.rowHeight'
+    })
+  }),
+
+  scrollTableLayout: Ember.computed(function () {
+    return TableLayout.create({
+      source: this,
+      rowsBinding: 'source.rows',
+      columnsBinding: 'source.scrollColumns',
       defaultRowHeightBinding: 'source.rowHeight'
     })
   })

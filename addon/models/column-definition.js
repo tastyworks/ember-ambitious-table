@@ -3,6 +3,7 @@ import Ember from 'ember'
 const ColumnDefinition = Ember.Object.extend({
   width: 100,
   contentPath: null,
+  fixed: false,
 
   header: Ember.computed('contentPath', function () {
     let contentPath = this.get('contentPath')
