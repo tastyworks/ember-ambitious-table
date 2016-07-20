@@ -1,5 +1,5 @@
 {{#if fixedColumns.length}}
-  {{amb-table-section width=fixedTableLayout.contentWidth rows=rows columns=fixedColumns tableLayout=fixedTableLayout}}
+  {{amb-table-section class='amb-table-section-fixed' width=fixedTableLayout.contentWidth rows=rows columns=fixedColumns tableLayout=fixedTableLayout}}
 {{/if}}
 {{#if scrollColumns.length}}
   {{amb-table-section rows=rows columns=scrollColumns tableLayout=scrollTableLayout}}

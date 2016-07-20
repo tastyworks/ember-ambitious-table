@@ -7,11 +7,23 @@ export default Ember.Object.extend({
 
   defaultRowHeight: null,
 
+  clientWidth: null,
+  clientHeight: null,
+
   contentWidth: Ember.computed.sum('_columnWidths'),
   contentHeight: Ember.computed.sum('_rowHeights'),
 
+  horizontalScroll: Ember.computed('contentWidth', 'clientWidth', function () {
+    return this.get('contentWidth') > this.get('clientWidth')
+  }),
+
+  verticalScroll: Ember.computed('contentHeight', 'clientHeight', function () {
+    return this.get('contentHeight') > this.get('clientHeight')
+  }),
+
   /* Return an object that describes the size of the content area */
-  contentSize (_clientWidth, _clientHeight) {
+  contentSize (clientWidth, clientHeight) {
+    this.setProperties({ clientWidth, clientHeight })
     return {
       width: this.get('contentWidth'),
       height: this.get('contentHeight')

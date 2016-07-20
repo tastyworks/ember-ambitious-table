@@ -5,6 +5,8 @@ import ColumnDefinition from '../models/column-definition'
 import Cell from '../models/cell'
 import TableLayout from '../layouts/table'
 
+const SCROLLBAR_SIZE = 30
+
 export default Ember.Component.extend({
   layout,
   classNames: ['amb-table'],
@@ -30,6 +32,9 @@ export default Ember.Component.extend({
 
     if (height === 'wrap-content') {
       height = this.get('scrollTableLayout.contentHeight')
+      if (this.get('scrollTableLayout.horizontalScroll')) {
+        height += SCROLLBAR_SIZE
+      }
     }
 
     return Ember.String.htmlSafe(`height: ${height}px`)
