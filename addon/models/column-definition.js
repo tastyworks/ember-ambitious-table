@@ -4,6 +4,11 @@ const ColumnDefinition = Ember.Object.extend({
   width: 100,
   contentPath: null,
 
+  header: Ember.computed('contentPath', function () {
+    let contentPath = this.get('contentPath')
+    contentPath && Ember.String.underscore(contentPath).replace(/_/g, ' ')
+  }),
+
   getCellContent (item) {
     let path = this.get('contentPath')
     return Ember.get(item, path)

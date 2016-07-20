@@ -7,6 +7,22 @@ import TableLayout from '../layouts/table'
 
 export default Ember.Component.extend({
   layout,
+  attributeBindings: ['style'],
+
+  height: 'match-parent', // 'match-parent', 'wrap-content', or number
+
+  style: Ember.computed('height', 'tableLayout.contentHeight', function () {
+    let height = this.get('height')
+    if (height === 'match-parent') {
+      return Ember.String.htmlSafe('position: absolute; left: 0; right: 0; top: 0; bottom: 0;')
+    }
+
+    if (height === 'wrap-content') {
+      height = this.get('tableLayout.contentHeight')
+    }
+
+    return Ember.String.htmlSafe(`position: relative; height: ${height}px`)
+  }),
 
   columns: Ember.computed({
     get () {

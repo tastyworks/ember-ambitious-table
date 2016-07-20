@@ -5,11 +5,14 @@ export default Ember.Object.extend({
   rows: null,
   columns: null,
 
+  contentWidth: Ember.computed.sum('_columnWidths'),
+  contentHeight: Ember.computed.sum('_rowHeights'),
+
   /* Return an object that describes the size of the content area */
   contentSize (_clientWidth, _clientHeight) {
     return {
-      width: this.get('_columnOffsets.lastObject'),
-      height: this.get('_rowOffsets.lastObject')
+      width: this.get('contentWidth'),
+      height: this.get('contentHeight')
     }
   },
 
@@ -42,22 +45,22 @@ export default Ember.Object.extend({
 
   _columnOffsets: Ember.computed('_columnWidths.[]', function () {
     let widths = this.get('_columnWidths')
-    let offsets = Ember.A([0])
+    let offsets = Ember.A([])
     let last = 0
     widths.forEach((width) => {
-      last += width
       offsets.pushObject(last)
+      last += width
     })
     return offsets
   }),
 
   _rowOffsets: Ember.computed('_rowHeights.[]', function () {
     let heights = this.get('_rowHeights')
-    let offsets = Ember.A([0])
+    let offsets = Ember.A([])
     let last = 0
     heights.forEach((height) => {
-      last += height
       offsets.pushObject(last)
+      last += height
     })
     return offsets
   }),
