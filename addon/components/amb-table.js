@@ -7,6 +7,7 @@ import TableLayout from '../layouts/table'
 
 export default Ember.Component.extend({
   layout,
+  classNames: ['amb-table'],
   attributeBindings: ['style'],
 
   height: 'match-parent', // 'match-parent', 'wrap-content', or number
@@ -24,6 +25,7 @@ export default Ember.Component.extend({
     return Ember.String.htmlSafe(`position: relative; height: ${height}px`)
   }),
 
+  rowHeight: null,
   columns: Ember.computed({
     get () {
       return Ember.A()
@@ -51,7 +53,8 @@ export default Ember.Component.extend({
     return TableLayout.create({
       source: this,
       rowsBinding: 'source.rows',
-      columnsBinding: 'source.columns'
+      columnsBinding: 'source.columns',
+      defaultRowHeightBinding: 'source.rowHeight'
     })
   })
 })

@@ -5,6 +5,8 @@ export default Ember.Object.extend({
   rows: null,
   columns: null,
 
+  defaultRowHeight: null,
+
   contentWidth: Ember.computed.sum('_columnWidths'),
   contentHeight: Ember.computed.sum('_rowHeights'),
 
@@ -65,14 +67,11 @@ export default Ember.Object.extend({
     return offsets
   }),
 
-  // _columnWidths: Ember.computed.map('columns.@each.width', function (item) {
-  _columnWidths: Ember.computed.map('columns.[]', function (item) {
-    return Ember.get(item, 'width') || 100
-  }),
+  _columnWidths: Ember.computed.mapBy('columns', 'width'),
 
   // _rowHeights: Ember.computed.map('rows.@each.height', function (item) {
   _rowHeights: Ember.computed.map('rows.[]', function (item) {
-    return Ember.get(item, 'height') || 20
+    return Ember.get(item, 'rowHeight') || this.get('defaultRowHeight') || 20
   }),
 
   _findR (scrollOffset) {
