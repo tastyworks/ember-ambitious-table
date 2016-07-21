@@ -15,6 +15,6 @@
   position: relative;
 }
 
-.amb-table-section-fixed .ember-native-scrollable {
+.amb-table-section-nonscroll .ember-native-scrollable {
   overflow: hidden !important;
 }

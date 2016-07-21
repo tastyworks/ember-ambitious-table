@@ -4,10 +4,12 @@ const ColumnDefinition = Ember.Object.extend({
   width: 100,
   contentPath: null,
   fixed: false,
+  headerComponent: 'amb-table-cell',
+  cellComponent: 'amb-table-cell',
 
   header: Ember.computed('contentPath', function () {
     let contentPath = this.get('contentPath')
-    contentPath && Ember.String.underscore(contentPath).replace(/_/g, ' ')
+    return contentPath && Ember.String.underscore(contentPath).replace(/_/g, ' ')
   }),
 
   getCellContent (item) {

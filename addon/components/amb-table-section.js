@@ -22,16 +22,16 @@ export default Ember.Component.extend({
     }
   }),
 
-  items: Ember.computed('columns.[]', 'rows.[]', function () {
+  cells: Ember.computed('columns.[]', 'rows.[]', function () {
     let rows = this.get('rows')
     let columns = this.get('columns')
 
-    let items = Ember.A([])
+    let cells = Ember.A([])
     rows.forEach((row) => {
       columns.forEach((column) => {
-        items.pushObject(Cell.create({ row, column }))
+        cells.pushObject(Cell.create({ row, column }))
       })
     })
-    return items
+    return cells
   })
 })

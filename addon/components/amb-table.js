@@ -2,7 +2,7 @@ import Ember from 'ember'
 import layout from '../templates/components/amb-table'
 
 import ColumnDefinition from '../models/column-definition'
-import Cell from '../models/cell'
+import HeaderCells from '../models/header-cells'
 import TableLayout from '../layouts/table'
 
 const SCROLLBAR_SIZE = 30
@@ -12,6 +12,9 @@ export default Ember.Component.extend({
   classNames: ['amb-table'],
   classNameBindings: ['heightClass'],
   attributeBindings: ['style'],
+
+  showHeaders: true,
+  headerHeight: 30,
 
   height: 'match-parent', // 'match-parent', 'wrap-content', or number
 
@@ -40,11 +43,6 @@ export default Ember.Component.extend({
     return Ember.String.htmlSafe(`height: ${height}px`)
   }),
 
-  fixedWidthCss: Ember.computed('fixedTableLayout.contentWidth', function () {
-    let width = this.get('fixedTableLayout.contentWidth')
-    return Ember.String.htmlSafe(`width: ${width}px`)
-  }),
-
   rows: null,
   columns: Ember.computed({
     get (_key) {
@@ -58,6 +56,14 @@ export default Ember.Component.extend({
 
   fixedColumns: Ember.computed.filterBy('columns', 'fixed'),
   scrollColumns: Ember.computed.filterBy('columns', 'fixed', false),
+
+  fixedColumnHeaderCells: Ember.computed('fixedColumns', function () {
+    return HeaderCells.create({ columns: this.get('fixedColumns') })
+  }),
+
+  scrollColumnHeaderCells: Ember.computed('scrollColumns', function () {
+    return HeaderCells.create({ columns: this.get('scrollColumns') })
+  }),
 
   fixedTableLayout: Ember.computed(function () {
     return TableLayout.create({
