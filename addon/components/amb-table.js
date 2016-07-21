@@ -40,6 +40,11 @@ export default Ember.Component.extend({
     return Ember.String.htmlSafe(`height: ${height}px`)
   }),
 
+  fixedWidthCss: Ember.computed('fixedTableLayout.contentWidth', function () {
+    let width = this.get('fixedTableLayout.contentWidth')
+    return Ember.String.htmlSafe(`width: ${width}px`)
+  }),
+
   rows: null,
   columns: Ember.computed({
     get (_key) {

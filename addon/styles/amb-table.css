@@ -1,8 +1,3 @@
-.amb-table {
-  display: flex;
-  position: relative;
-}
-
 .amb-table-match-parent {
   position: absolute;
   left: 0;
@@ -11,9 +6,13 @@
   bottom: 0;
 }
 
+.amb-table-grid {
+  width: 100%;
+  height: 100%;
+}
+
 .amb-table-section {
   position: relative;
-  flex: 1 1 0;
 }
 
 .amb-table-section-fixed .ember-native-scrollable {

@@ -7,10 +7,10 @@ import TableLayout from '../layouts/table'
 
 export default Ember.Component.extend({
   layout,
+  tagName: 'td',
   classNames: 'amb-table-section',
   attributeBindings: ['style'],
 
-  width: null,
   rows: null,
   columns: null,
   tableLayout: null,

@@ -1,6 +1,17 @@
-{{#if fixedColumns.length}}
-  {{amb-table-section class='amb-table-section-fixed' width=fixedTableLayout.contentWidth rows=rows columns=fixedColumns tableLayout=fixedTableLayout}}
-{{/if}}
-{{#if scrollColumns.length}}
-  {{amb-table-section rows=rows columns=scrollColumns tableLayout=scrollTableLayout}}
-{{/if}}
+<table class='amb-table-grid'>
+  {{#if fixedColumns}}
+    <colgroup>
+      <col style={{fixedWidthCss}} />
+      <col />
+    </colgroup>
+  {{/if}}
+
+  <tr>
+    {{#if fixedColumns}}
+      {{amb-table-section class='amb-table-section-fixed' rows=rows columns=fixedColumns tableLayout=fixedTableLayout}}
+    {{/if}}
+    {{#if scrollColumns}}
+      {{amb-table-section rows=rows columns=scrollColumns tableLayout=scrollTableLayout}}
+    {{/if}}
+  </tr>
+</table>
