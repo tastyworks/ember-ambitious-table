@@ -32,16 +32,14 @@ export default Ember.Object.extend({
 
   /* Return the index of the first item shown.  */
   indexAt (_offsetX, offsetY, _clientWidth, _clientHeight) {
-    let rowOffsets = this.get('_rowOffsets')
     let r = this._findR(offsetY)
     return this._toI(r, 0)
   },
 
   /* Return the number of items to display */
   count (_offsetX, offsetY, _width, height) {
-    let rowOffsets = this.get('_rowOffsets')
     let rStart = this._findR(offsetY)
-    let rEnd = this._findR(offsetY + height)
+    let rEnd = this._findR(offsetY + height) + 1
     return (rEnd - rStart) * this.get('columns.length')
   },
 
@@ -93,7 +91,7 @@ export default Ember.Object.extend({
         return r - 1
       }
     }
-    return rowOffsets.length
+    return rowOffsets.length - 1
   },
 
   _toRC (itemIndex) {

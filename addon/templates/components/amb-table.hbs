@@ -1,27 +1,39 @@
 <table class='amb-table-grid'>
   {{#if fixedColumns}}
     <colgroup>
-      <col style={{amb-table-style width=fixedTableLayout.contentWidth}} />
+      <col style={{amb-table-style width=fixedWidth}} />
     </colgroup>
   {{/if}}
 
   {{#if showHeaders}}
     <tr style={{amb-table-style height=headerHeight}}>
       {{#if fixedColumns}}
-        {{amb-table-section class='amb-table-section-nonscroll' cells=fixedColumnHeaderCells tableLayout=scrollTableLayout}}
+        {{amb-table-section
+            class='amb-table-section-nonscroll'
+            cells=(amb-table-header-cells columns=fixedColumns height=headerHeight)
+        }}
       {{/if}}
       {{#if scrollColumns}}
-        {{amb-table-section class='amb-table-section-nonscroll' cells=scrollColumnHeaderCells tableLayout=scrollTableLayout}}
+        {{amb-table-section
+            class='amb-table-section-nonscroll'
+            cells=(amb-table-header-cells columns=scrollColumns height=headerHeight)
+        }}
       {{/if}}
     </tr>
   {{/if}}
 
   <tr>
     {{#if fixedColumns}}
-      {{amb-table-section class='amb-table-section-nonscroll' rows=rows columns=fixedColumns tableLayout=fixedTableLayout}}
+      {{amb-table-section
+          class='amb-table-section-nonscroll'
+          cells=(amb-table-body-cells rows=rows columns=fixedColumns)
+      }}
     {{/if}}
     {{#if scrollColumns}}
-      {{amb-table-section rows=rows columns=scrollColumns tableLayout=scrollTableLayout}}
+      {{amb-table-section
+          class='amb-table-section-scroll'
+          cells=(amb-table-body-cells rows=rows columns=scrollColumns)
+      }}
     {{/if}}
   </tr>
 </table>

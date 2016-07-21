@@ -2,8 +2,6 @@ import Ember from 'ember'
 import layout from '../templates/components/amb-table'
 
 import ColumnDefinition from '../models/column-definition'
-import HeaderCells from '../models/header-cells'
-import TableLayout from '../layouts/table'
 
 const SCROLLBAR_SIZE = 30
 
@@ -57,29 +55,6 @@ export default Ember.Component.extend({
   fixedColumns: Ember.computed.filterBy('columns', 'fixed'),
   scrollColumns: Ember.computed.filterBy('columns', 'fixed', false),
 
-  fixedColumnHeaderCells: Ember.computed('fixedColumns', function () {
-    return HeaderCells.create({ columns: this.get('fixedColumns') })
-  }),
-
-  scrollColumnHeaderCells: Ember.computed('scrollColumns', function () {
-    return HeaderCells.create({ columns: this.get('scrollColumns') })
-  }),
-
-  fixedTableLayout: Ember.computed(function () {
-    return TableLayout.create({
-      source: this,
-      rowsBinding: 'source.rows',
-      columnsBinding: 'source.fixedColumns',
-      defaultRowHeightBinding: 'source.rowHeight'
-    })
-  }),
-
-  scrollTableLayout: Ember.computed(function () {
-    return TableLayout.create({
-      source: this,
-      rowsBinding: 'source.rows',
-      columnsBinding: 'source.scrollColumns',
-      defaultRowHeightBinding: 'source.rowHeight'
-    })
-  })
+  _fixedWidths: Ember.computed.mapBy('fixedColumns', 'width'),
+  fixedWidth: Ember.computed.sum('_fixedWidths'),
 })
