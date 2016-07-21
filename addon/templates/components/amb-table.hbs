@@ -6,7 +6,7 @@
   {{/if}}
 
   {{#if showHeaders}}
-    <tr style={{amb-table-style height=headerHeight}}>
+    <tr class='amb-table-header' style={{amb-table-style height=headerHeight}}>
       {{#if fixedColumns}}
         {{amb-table-section
             class='amb-table-section-nonscroll'
@@ -22,7 +22,7 @@
     </tr>
   {{/if}}
 
-  <tr>
+  <tr class='amb-table-body'>
     {{#if fixedColumns}}
       {{amb-table-section
           class='amb-table-section-nonscroll'
@@ -33,6 +33,7 @@
       {{amb-table-section
           class='amb-table-section-scroll'
           cells=(amb-table-body-cells rows=rows columns=scrollColumns)
+          contentLayoutChange='scrollBodyLayoutChange'
       }}
     {{/if}}
   </tr>

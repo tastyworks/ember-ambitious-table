@@ -2,6 +2,7 @@ import Ember from 'ember'
 import layout from '../templates/components/amb-table'
 
 import ColumnDefinition from '../models/column-definition'
+import { style } from '../helpers/amb-table-style'
 
 const SCROLLBAR_SIZE = 30
 
@@ -25,20 +26,36 @@ export default Ember.Component.extend({
     }
   }),
 
-  style: Ember.computed('height', 'scrollTableLayout.contentHeight', function () {
+  contentHeight: Ember.computed('showHeaders', 'headerHeight', 'bodyHeight', 'horizontalScroll', function () {
+    let height = this.get('bodyHeight')
+
+    if (this.get('horizontalScroll')) {
+      height += SCROLLBAR_SIZE
+    }
+
+    if (this.get('showHeaders')) {
+      height += this.get('headerHeight')
+    }
+
+    return height
+  }),
+
+  heightStyle: Ember.computed('height', 'contentHeight', function () {
     let height = this.get('height')
     if (height === 'match-parent') {
       return
     }
 
     if (height === 'wrap-content') {
-      height = this.get('scrollTableLayout.contentHeight')
-      if (this.get('scrollTableLayout.horizontalScroll')) {
-        height += SCROLLBAR_SIZE
-      }
+      return this.get('contentHeight')
     }
+  }),
 
-    return Ember.String.htmlSafe(`height: ${height}px`)
+  style: Ember.computed('heightStyle', function () {
+    let height = this.get('heightStyle')
+    if (height) {
+      return style([], { height })
+    }
   }),
 
   rows: null,
@@ -57,4 +74,11 @@ export default Ember.Component.extend({
 
   _fixedWidths: Ember.computed.mapBy('fixedColumns', 'width'),
   fixedWidth: Ember.computed.sum('_fixedWidths'),
+
+  actions: {
+    scrollBodyLayoutChange (layout) {
+      this.set('bodyHeight', layout.get('contentHeight'))
+      this.set('horizontalScroll', layout.get('horizontalScroll'))
+    }
+  }
 })
