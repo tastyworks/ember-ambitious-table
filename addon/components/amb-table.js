@@ -17,6 +17,9 @@ export default Ember.Component.extend({
 
   height: 'match-parent', // 'match-parent', 'wrap-content', or number
 
+  scrollLeft: 0,
+  scrollTop: 0,
+
   heightClass: Ember.computed('height', function () {
     let height = this.get('height')
     if (Number(height)) {
@@ -79,6 +82,10 @@ export default Ember.Component.extend({
     scrollBodyLayoutChange (layout) {
       this.set('bodyHeight', layout.get('contentHeight'))
       this.set('horizontalScroll', layout.get('horizontalScroll'))
+    },
+
+    scrollChange (scrollLeft, scrollTop) {
+      this.setProperties({ scrollLeft, scrollTop })
     }
   }
 })

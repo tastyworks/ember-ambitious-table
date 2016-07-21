@@ -17,5 +17,12 @@ export default Ember.Component.extend({
 
   _doContentLayoutChange () {
     this.sendAction('contentLayoutChange', this.get('cells.layout'))
+  },
+
+  actions: {
+    scrollChange (scrollLeft, scrollTop) {
+      console.log(scrollLeft, scrollTop)
+      this.sendAction('scrollChange', scrollLeft, scrollTop)
+    }
   }
 })
