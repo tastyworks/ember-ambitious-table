@@ -18,23 +18,19 @@ export const BodyCell = Ember.Object.extend({
 })
 
 export const BodyCells = Ember.ArrayProxy.extend({
-  rows: Ember.computed.alias('content'),
+  rows: null,
   columns: null,
 
-  length: Ember.computed('rows.length', 'columns.length', function () {
-    return this.get('rows.length') * this.get('columns.length')
-  }),
-
-  objectAtContent (idx) {
-    let numColumns = this.get('columns.length')
-    let r = Math.floor(idx / numColumns)
-    let c = idx % numColumns
-
-    return BodyCell.create({
-      row: this.get('rows').objectAt(r),
-      column: this.get('columns').objectAt(c)
+  content: Ember.computed('rows.[]', 'columns.[]', function () {
+    let cells = []
+    let columns = this.get('columns')
+    this.get('rows').forEach((row) => {
+      columns.forEach((column) => {
+        cells.push(BodyCell.create({ row, column }))
+      })
     })
-  },
+    return cells
+  }),
 
   layout: Ember.computed(function () {
     return TableLayout.create({

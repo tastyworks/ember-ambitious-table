@@ -21,7 +21,6 @@ export default Ember.Component.extend({
 
   actions: {
     scrollChange (scrollLeft, scrollTop) {
-      console.log(scrollLeft, scrollTop)
       this.sendAction('scrollChange', scrollLeft, scrollTop)
     }
   }
