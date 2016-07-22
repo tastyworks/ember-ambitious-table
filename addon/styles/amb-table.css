@@ -9,6 +9,9 @@
 .amb-table-grid {
   width: 100%;
   height: 100%;
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 .amb-table-section {
