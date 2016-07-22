@@ -1,5 +1,11 @@
 import Ember from 'ember'
 
+const CAMEL_REGEX = /([a-z\d])([A-Z]+)/g
+
+function titleize (str) {
+  return Ember.String.classify(str).replace(CAMEL_REGEX, '$1 $2')
+}
+
 const ColumnDefinition = Ember.Object.extend({
   width: 100,
   contentPath: null,
@@ -9,7 +15,7 @@ const ColumnDefinition = Ember.Object.extend({
 
   header: Ember.computed('contentPath', function () {
     let contentPath = this.get('contentPath')
-    return contentPath && Ember.String.underscore(contentPath).replace(/_/g, ' ')
+    return contentPath && titleize(contentPath)
   }),
 
   getCellContent (item) {
