@@ -21,3 +21,9 @@
 .amb-table-section-nonscroll .ember-native-scrollable {
   overflow: hidden !important;
 }
+
+.amb-table-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
