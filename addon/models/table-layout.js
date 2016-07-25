@@ -79,8 +79,7 @@ export default Ember.Object.extend({
 
   _columnWidths: Ember.computed.mapBy('columns', 'width'),
 
-  // _rowHeights: Ember.computed.map('rows.@each.height', function (item) {
-  _rowHeights: Ember.computed.map('rows.[]', function (item) {
+  _rowHeights: Ember.computed.map('rows.@each.rowHeight', function (item) {
     return Ember.get(item, 'rowHeight') || this.get('defaultRowHeight') || 20
   }),
 
