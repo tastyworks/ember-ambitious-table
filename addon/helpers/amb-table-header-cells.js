@@ -11,13 +11,12 @@ export const HeaderCell = Ember.Object.extend({
 })
 
 export const HeaderCells = Ember.ArrayProxy.extend({
-  columns: Ember.computed.alias('content'),
+  columns: null,
   height: null,
 
-  objectAtContent (idx) {
-    let column = this.get('columns').objectAt(idx)
-    return HeaderCell.create({ column })
-  },
+  content: Ember.computed('columns.[]', function () {
+    return this.get('columns').map((column) => HeaderCell.create({ column }))
+  }),
 
   layout: Ember.computed(function () {
     return TableLayout.create({
