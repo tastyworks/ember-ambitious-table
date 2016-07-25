@@ -5,7 +5,8 @@ import TableLayout from '../models/table-layout'
 export const HeaderCell = Ember.Object.extend({
   column: null,
 
-  classNames: Ember.computed.readOnly('column.classNames'),
+  defaultClassNames: Ember.A(['amb-table-cell', 'amb-table-header-cell']),
+  classNames: Ember.computed.union('defaultClassNames', 'column.classNames.[]'),
   component: Ember.computed.readOnly('column.headerComponent'),
   content: Ember.computed.readOnly('column.header')
 })

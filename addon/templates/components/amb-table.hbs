@@ -10,14 +10,14 @@
       {{#if fixedColumns}}
         {{amb-table-section
             class='amb-table-section-nonscroll'
-            cells=(amb-table-header-cells columns=fixedColumns height=headerHeight)
+            cells=(amb-table-header-cells columns=fixedColumns defaultRowHeight=headerHeight)
             cellClick=(action 'headerClick')
         }}
       {{/if}}
       {{#if scrollColumns}}
         {{amb-table-section
             class='amb-table-section-nonscroll'
-            cells=(amb-table-header-cells columns=scrollColumns height=headerHeight)
+            cells=(amb-table-header-cells columns=scrollColumns defaultRowHeight=headerHeight)
             scrollLeft=scrollLeft
             cellClick=(action 'headerClick')
         }}
@@ -29,7 +29,7 @@
     {{#if fixedColumns}}
       {{amb-table-section
           class='amb-table-section-nonscroll'
-          cells=(amb-table-body-cells rows=rows columns=fixedColumns)
+          cells=(amb-table-body-cells rows=rows columns=fixedColumns defaultRowHeight=rowHeight)
           scrollTop=scrollTop
           cellClick=(action 'cellClick')
       }}
@@ -37,7 +37,7 @@
     {{#if scrollColumns}}
       {{amb-table-section
           class='amb-table-section-scroll'
-          cells=(amb-table-body-cells rows=rows columns=scrollColumns)
+          cells=(amb-table-body-cells rows=rows columns=scrollColumns defaultRowHeight=rowHeight)
           scrollLeft=scrollLeft
           scrollTop=scrollTop
           scrollChange=(action 'scrollChange')

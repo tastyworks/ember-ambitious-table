@@ -5,7 +5,8 @@ export const BodyCell = Ember.Object.extend({
   row: null,
   column: null,
 
-  classNames: Ember.computed.union('row.classNames', 'column.classNames'),
+  defaultClassNames: Ember.A(['amb-table-cell', 'amb-table-body-cell']),
+  classNames: Ember.computed.union('defaultClassNames', 'row.classNames', 'column.classNames'),
 
   component: Ember.computed('column.cellComponent', function () {
     return this.get('column.cellComponent') || 'amb-table-cell'
