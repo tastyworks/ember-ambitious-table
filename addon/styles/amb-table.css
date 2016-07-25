@@ -12,6 +12,7 @@
   border: none;
   border-collapse: collapse;
   border-spacing: 0;
+  position: absolute;
 }
 
 .amb-table-section {
@@ -27,4 +28,15 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.amb-table-scroll-hack {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+.amb-table-antiscroll-hack {
+  width: 110%;
+  height: 110%;
 }
