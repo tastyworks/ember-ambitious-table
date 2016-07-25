@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
     { contentPath: 'text', width: 300 },
     { contentPath: 'text', width: 300 },
     { contentPath: 'text', width: 300 },
-    { contentPath: 'text', width: 300 },
+    { contentPath: 'text', width: 300 }
   ]),
   rows: Ember.A(Array(100).fill(0).map((_v, i) => {
     return {

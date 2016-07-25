@@ -1,4 +1,4 @@
-export function initialize(appInstance) {
+export function initialize (appInstance) {
   appInstance._lookupFactory('component:ember-collection').reopen({
     classNames: ['ember-collection']
   })
