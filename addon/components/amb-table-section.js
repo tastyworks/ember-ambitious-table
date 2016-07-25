@@ -22,6 +22,10 @@ export default Ember.Component.extend({
   actions: {
     scrollChange (scrollLeft, scrollTop) {
       this.sendAction('scrollChange', scrollLeft, scrollTop)
+    },
+
+    cellClick (cell) {
+      this.sendAction('cellClick', cell)
     }
   }
 })

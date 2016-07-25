@@ -1,3 +1,3 @@
 {{#ember-collection items=cells cell-layout=cells.layout scroll-left=scrollLeft scroll-top=scrollTop scroll-change='scrollChange' as |cell index|}}
-  {{component cell.component classNames=cell.classNames cell=cell}}
+  {{component cell.component classNames=cell.classNames cell=cell click=(action 'cellClick' cell)}}
 {{/ember-collection}}

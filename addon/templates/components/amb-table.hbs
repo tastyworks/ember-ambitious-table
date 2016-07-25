@@ -11,6 +11,7 @@
         {{amb-table-section
             class='amb-table-section-nonscroll'
             cells=(amb-table-header-cells columns=fixedColumns height=headerHeight)
+            cellClick=(action 'headerClick')
         }}
       {{/if}}
       {{#if scrollColumns}}
@@ -18,6 +19,7 @@
             class='amb-table-section-nonscroll'
             cells=(amb-table-header-cells columns=scrollColumns height=headerHeight)
             scrollLeft=scrollLeft
+            cellClick=(action 'headerClick')
         }}
       {{/if}}
     </tr>
@@ -29,6 +31,7 @@
           class='amb-table-section-nonscroll'
           cells=(amb-table-body-cells rows=rows columns=fixedColumns)
           scrollTop=scrollTop
+          cellClick=(action 'cellClick')
       }}
     {{/if}}
     {{#if scrollColumns}}
@@ -39,6 +42,7 @@
           scrollTop=scrollTop
           scrollChange=(action 'scrollChange')
           contentLayoutChange=(action 'scrollBodyLayoutChange')
+          cellClick=(action 'cellClick')
       }}
     {{/if}}
   </tr>

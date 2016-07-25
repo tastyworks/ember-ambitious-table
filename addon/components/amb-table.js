@@ -86,6 +86,14 @@ export default Ember.Component.extend({
 
     scrollChange (scrollLeft, scrollTop) {
       this.setProperties({ scrollLeft, scrollTop })
+    },
+
+    headerClick (item) {
+      this.sendAction('headerClick', item)
+    },
+
+    cellClick (item) {
+      this.sendAction('cellClick', item)
     }
   }
 })
