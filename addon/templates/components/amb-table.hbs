@@ -1,49 +1,54 @@
-<table class='amb-table-grid'>
-  {{#if fixedColumns}}
-    <colgroup>
-      <col style={{amb-table-style width=fixedWidth}} />
-    </colgroup>
-  {{/if}}
-
-  {{#if showHeaders}}
-    <tr class='amb-table-header' style={{amb-table-style height=headerHeight}}>
+<div class='amb-table-scroll-hack'>
+  <div class='amb-table-scroll-content-hack'></div>
+  <div class='amb-table-antiscroll-hack'>
+    <table class='amb-table-grid'>
       {{#if fixedColumns}}
-        {{amb-table-section
-            class='amb-table-section-nonscroll'
-            cells=(amb-table-header-cells columns=fixedColumns defaultRowHeight=headerHeight)
-            cellClick=(action 'headerClick')
-        }}
+        <colgroup>
+          <col style={{amb-table-style width=fixedWidth}} />
+        </colgroup>
       {{/if}}
-      {{#if scrollColumns}}
-        {{amb-table-section
-            class='amb-table-section-nonscroll'
-            cells=(amb-table-header-cells columns=scrollColumns defaultRowHeight=headerHeight)
-            scrollLeft=scrollLeft
-            cellClick=(action 'headerClick')
-        }}
-      {{/if}}
-    </tr>
-  {{/if}}
 
-  <tr class='amb-table-body'>
-    {{#if fixedColumns}}
-      {{amb-table-section
-          class='amb-table-section-nonscroll'
-          cells=(amb-table-body-cells rows=rows columns=fixedColumns defaultRowHeight=rowHeight)
-          scrollTop=scrollTop
-          cellClick=(action 'cellClick')
-      }}
-    {{/if}}
-    {{#if scrollColumns}}
-      {{amb-table-section
-          class='amb-table-section-scroll'
-          cells=(amb-table-body-cells rows=rows columns=scrollColumns defaultRowHeight=rowHeight)
-          scrollLeft=scrollLeft
-          scrollTop=scrollTop
-          scrollChange=(action 'scrollChange')
-          contentLayoutChange=(action 'scrollBodyLayoutChange')
-          cellClick=(action 'cellClick')
-      }}
-    {{/if}}
-  </tr>
-</table>
+      {{#if showHeaders}}
+        <tr class='amb-table-header' style={{amb-table-style height=headerHeight}}>
+          {{#if fixedColumns}}
+            {{amb-table-section
+                class='amb-table-section-nonscroll'
+                cells=(amb-table-header-cells columns=fixedColumns defaultRowHeight=headerHeight)
+                cellClick=(action 'headerClick')
+            }}
+          {{/if}}
+          {{#if scrollColumns}}
+            {{amb-table-section
+                class='amb-table-section-nonscroll'
+                cells=(amb-table-header-cells columns=scrollColumns defaultRowHeight=headerHeight)
+                scrollLeft=scrollLeft
+                cellClick=(action 'headerClick')
+            }}
+          {{/if}}
+        </tr>
+      {{/if}}
+
+      <tr class='amb-table-body'>
+        {{#if fixedColumns}}
+          {{amb-table-section
+              class='amb-table-section-nonscroll'
+              cells=(amb-table-body-cells rows=rows columns=fixedColumns defaultRowHeight=rowHeight)
+              scrollTop=scrollTop
+              cellClick=(action 'cellClick')
+          }}
+        {{/if}}
+        {{#if scrollColumns}}
+          {{amb-table-section
+              class='amb-table-section-scroll'
+              cells=(amb-table-body-cells rows=rows columns=scrollColumns defaultRowHeight=rowHeight)
+              scrollLeft=scrollLeft
+              scrollTop=scrollTop
+              scrollChange=(action 'scrollChange')
+              contentLayoutChange=(action 'scrollBodyLayoutChange')
+              cellClick=(action 'cellClick')
+          }}
+        {{/if}}
+      </tr>
+    </table>
+  </div>
+</div>
