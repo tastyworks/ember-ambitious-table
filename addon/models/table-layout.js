@@ -1,6 +1,8 @@
 import Ember from 'ember'
 import { formatPixelStyle } from 'ember-collection/utils/style-generators'
 
+import bsearch from '../utils/bsearch'
+
 export default Ember.Object.extend({
   rows: null,
   columns: null,
@@ -85,12 +87,7 @@ export default Ember.Object.extend({
 
   _findR (scrollOffset) {
     let rowOffsets = this.get('_rowOffsets')
-    for (let r = 0; r < rowOffsets.length; r++) {
-      if (rowOffsets[r] > scrollOffset) {
-        return r - 1
-      }
-    }
-    return rowOffsets.length - 1
+    return bsearch(rowOffsets, scrollOffset - (rowOffsets[1] || 0))
   },
 
   _toRC (itemIndex) {
