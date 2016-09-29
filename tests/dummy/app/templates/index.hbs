@@ -1,1 +1,13 @@
-{{amb-table columns=columns rows=rows}}
+{{#amb-table rows=rows as |t|}}
+  {{t.fixed header='Number' contentPath='index'}}
+  {{t.column width=300 contentPath='text'}}
+  {{t.column width=300 contentPath='text'}}
+  {{t.column width=300 contentPath='text'}}
+  {{t.column width=300 contentPath='text'}}
+  {{t.column width=300 contentPath='text'}}
+  {{t.column width=300 contentPath='text'}}
+  {{t.column width=300 contentPath='text'}}
+  {{t.column width=300 contentPath='text'}}
+  {{t.column width=300 contentPath='text'}}
+  {{t.column width=300 contentPath='text'}}
+{{/amb-table}}

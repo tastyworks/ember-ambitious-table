@@ -1,6 +1,10 @@
 <div class='amb-table-scroll-hack'>
   <div class='amb-table-scroll-content-hack'></div>
   <div class='amb-table-antiscroll-hack'>
+    {{yield (hash
+      fixed=(component 'amb-table-column-definition' onInsert=(action 'insertColumn' fixedColumns) onRemove=(action 'removeColumn' fixedColumns))
+      column=(component 'amb-table-column-definition' onInsert=(action 'insertColumn' scrollColumns) onRemove=(action 'removeColumn' scrollColumns))
+    )}}
     <table class='amb-table-grid'>
       {{#if fixedColumns}}
         <colgroup>

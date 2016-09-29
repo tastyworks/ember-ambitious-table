@@ -1,4 +1,5 @@
 import Ember from 'ember'
+import hbs from 'htmlbars-inline-precompile'
 
 const CAMEL_REGEX = /([a-z\d])([A-Z]+)/g
 
@@ -6,10 +7,12 @@ function titleize (str) {
   return Ember.String.classify(str).replace(CAMEL_REGEX, '$1 $2')
 }
 
-const ColumnDefinition = Ember.Object.extend({
+export default Ember.Component.extend({
+  tagName: null,
+  layout: hbs(''),
+
   width: 100,
   contentPath: null,
-  fixed: false,
   headerComponent: 'amb-table-cell',
   cellComponent: 'amb-table-cell',
 
@@ -21,17 +24,13 @@ const ColumnDefinition = Ember.Object.extend({
   getCellContent (item) {
     let path = this.get('contentPath')
     return Ember.get(item, path)
-  }
-}).reopenClass({
-  build (attrs) {
-    if (ColumnDefinition.detectInstance(attrs)) {
-      return attrs
-    } else if (Ember.typeOf(attrs) === 'string') {
-      return ColumnDefinition.create({ contentPath: attrs })
-    } else {
-      return ColumnDefinition.create(attrs)
-    }
-  }
-})
+  },
 
-export default ColumnDefinition
+  _onInsert: Ember.on('didInsertElement', function () {
+    this.sendAction('onInsert', this)
+  }),
+
+  _onRemove: Ember.on('willRemoveElement', function () {
+    this.sendAction('onRemove', this)
+  })
+})

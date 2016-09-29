@@ -1,7 +1,6 @@
 import Ember from 'ember'
 import layout from '../templates/components/amb-table'
 
-import ColumnDefinition from '../models/column-definition'
 import { style } from '../helpers/amb-table-style'
 
 const SCROLLBAR_SIZE = 30
@@ -62,18 +61,9 @@ export default Ember.Component.extend({
   }),
 
   rows: null,
-  columns: Ember.computed({
-    get (_key) {
-      return Ember.A()
-    },
 
-    set (_key, value) {
-      return Ember.A(value.map(ColumnDefinition.build))
-    }
-  }),
-
-  fixedColumns: Ember.computed.filterBy('columns', 'fixed'),
-  scrollColumns: Ember.computed.filterBy('columns', 'fixed', false),
+  fixedColumns: Ember.computed(() => Ember.A()),
+  scrollColumns: Ember.computed(() => Ember.A()),
 
   _fixedWidths: Ember.computed.mapBy('fixedColumns', 'width'),
   fixedWidth: Ember.computed.sum('_fixedWidths'),
@@ -94,6 +84,18 @@ export default Ember.Component.extend({
 
     cellClick (item) {
       this.sendAction('cellClick', item)
-    }
+    },
+
+    insertColumn (columns, column) {
+      Ember.run.schedule('afterRender', () => {
+        columns.pushObject(column)
+      })
+    },
+
+    removeColumn (columns, column) {
+      Ember.run.schedule('afterRender', () => {
+        columns.removeObject(column)
+      })
+    },
   }
 })
