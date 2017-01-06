@@ -22,7 +22,7 @@ export const HeaderCells = Ember.ArrayProxy.extend({
   layout: Ember.computed(function () {
     return TableLayout.create({
       source: this,
-      rows: Ember.A([{ rowHeight: this.get('height') }]),
+      rows: Ember.A([{ rowHeight: this.get('defaultRowHeight') }]),
       columnsBinding: 'source.columns'
     })
   })
