@@ -85,6 +85,14 @@ export default Ember.Component.extend({
     },
 
     scrollChange (scrollLeft, scrollTop) {
+      const height = this.get('height')
+
+      if (Number(height)) {
+        if (scrollTop >= this.get('bodyHeight') - height) {
+          this.sendAction('onLastPage')
+        }
+      }
+
       this.setProperties({ scrollLeft, scrollTop })
     },
 
