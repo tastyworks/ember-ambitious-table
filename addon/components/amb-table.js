@@ -78,6 +78,19 @@ export default Ember.Component.extend({
   _fixedWidths: Ember.computed.mapBy('fixedColumns', 'width'),
   fixedWidth: Ember.computed.sum('_fixedWidths'),
 
+  _page: Ember.computed('height', 'scrollTop', function() {
+    const scrollTop = this.get('scrollTop')
+
+    if (Ember.isEqual(0, scrollTop)) {
+      return 1
+    }
+    return (scrollTop / this.get('height')) + 1
+  }),
+
+  _numPages: Ember.computed('height', 'bodyHeight', function() {
+    return this.get('bodyHeight') / this.get('height')
+  }),
+
   actions: {
     scrollBodyLayoutChange (layout) {
       this.set('bodyHeight', layout.get('contentHeight'))
@@ -85,6 +98,12 @@ export default Ember.Component.extend({
     },
 
     scrollChange (scrollLeft, scrollTop) {
+      const height = this.get('height')
+
+      if (Number(height)) {
+        this.get('onPage')(this.get('_page'), this.get('_numPages'));
+      }
+
       this.setProperties({ scrollLeft, scrollTop })
     },
 
