@@ -1,5 +1,5 @@
 import Ember from 'ember'
-import { formatPixelStyle } from 'ember-collection/utils/style-generators'
+import { formatPixelStyle, formatPercentageStyle } from 'ember-collection/utils/style-generators'
 
 import bsearch from '../utils/bsearch'
 
@@ -54,7 +54,15 @@ export default Ember.Object.extend({
     }
     let width = this.get(`_columnWidths.${c}`)
     let height = this.get(`_rowHeights.${r}`)
-    return formatPixelStyle(pos, width, height)
+    let widthPercentageMatch = String(width).match(/(\d+)%/)
+
+    if (widthPercentageMatch) {
+      width = widthPercentageMatch[1]
+
+      return formatPercentageStyle(pos, width, height)
+    } else {
+      return formatPixelStyle(pos, width, height)
+    }
   },
 
   _columnOffsets: Ember.computed('_columnWidths.[]', function () {
