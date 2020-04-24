@@ -1,8 +1,8 @@
 export function initialize (appInstance) {
-  appInstance._lookupFactory('component:ember-collection').reopen({
+  appInstance.factoryFor('component:ember-collection').class.reopen({
     classNames: ['ember-collection']
   })
-  appInstance._lookupFactory('component:ember-native-scrollable').reopen({
+  appInstance.factoryFor('component:ember-native-scrollable').class.reopen({
     classNames: ['ember-native-scrollable']
   })
 }
