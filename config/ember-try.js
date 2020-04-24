@@ -8,17 +8,6 @@ module.exports = function() {
         }
       },
       {
-        name: 'ember-lts-2.8',
-        bower: {
-          dependencies: {
-            'ember': 'components/ember#lts-2-8'
-          },
-          resolutions: {
-            'ember': 'lts-2-8'
-          }
-        }
-      },
-      {
         name: 'ember-2.13',
         bower: {
           dependencies: {
